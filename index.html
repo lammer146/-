@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Практическая работа №1 — ФЗ-126 «О связи»</title>
+<style>
+  :root{
+    --paper:#F6F4EE;
+    --paper-2:#EFEBE0;
+    --ink:#20242B;
+    --ink-soft:#565C66;
+    --line:#D8D2C2;
+    --signal:#28577D;
+    --signal-soft:#DCE7EE;
+    --stamp:#B5652F;
+    --stamp-soft:#F3E3D4;
+    --good:#3D6B4F;
+    --good-soft:#E1EBE3;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    background:var(--paper-2);
+    color:var(--ink);
+    font-family:"Source Serif Pro","Georgia",serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .sheet{
+    max-width:720px;
+    margin:0 auto;
+    background:var(--paper);
+    min-height:100vh;
+    box-shadow:0 0 40px rgba(0,0,0,0.06);
+  }
+
+  header.letterhead{
+    padding:34px 26px 22px;
+    border-bottom:2px solid var(--ink);
+  }
+
+  .doc-code{
+    font-family:"IBM Plex Mono","Menlo",monospace;
+    font-size:12px;
+    letter-spacing:0.02em;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+
+  h1.title{
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:700;
+    font-size:26px;
+    line-height:1.25;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+
+  .subtitle{
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  .subtitle b{color:var(--ink);font-weight:600;}
+
+  .meta-row{
+    display:flex;
+    gap:22px;
+    margin-top:18px;
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:13px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+  .meta-row span b{color:var(--ink);font-weight:600;}
+
+  section{
+    padding:26px 26px 6px;
+  }
+
+  h2.stage{
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:700;
+    font-size:19px;
+    color:var(--signal);
+    margin:8px 0 4px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+
+  h2.stage .num{
+    font-family:"IBM Plex Mono","Menlo",monospace;
+    font-size:14px;
+    background:var(--signal);
+    color:#fff;
+    padding:2px 8px;
+    border-radius:3px;
+  }
+
+  h3.task{
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    margin:26px 0 4px;
+  }
+
+  .ref{
+    font-family:"IBM Plex Mono","Menlo",monospace;
+    font-size:12.5px;
+    color:var(--stamp);
+    background:var(--stamp-soft);
+    padding:1px 7px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+
+  p{margin:8px 0;}
+
+  .goal-list{
+    margin:8px 0 4px;
+    padding-left:20px;
+  }
+  .goal-list li{margin-bottom:6px;}
+
+  table.registry{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 6px;
+    font-size:14.5px;
+  }
+  table.registry caption{
+    text-align:left;
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  table.registry th{
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    text-align:left;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding:6px 8px;
+  }
+  table.registry td{
+    border-bottom:1px solid var(--line);
+    padding:9px 8px;
+    vertical-align:top;
+  }
+  table.registry td.ch{
+    font-family:"IBM Plex Mono","Menlo",monospace;
+    font-size:12.5px;
+    color:var(--signal);
+    white-space:nowrap;
+  }
+  table.registry tr:last-child td{border-bottom:none;}
+
+  .answer{
+    background:var(--signal-soft);
+    border-left:3px solid var(--signal);
+    padding:12px 15px;
+    border-radius:0 6px 6px 0;
+    margin:10px 0 4px;
+  }
+  .answer p{margin:6px 0;}
+  .answer ol,.answer ul{margin:6px 0;padding-left:20px;}
+  .answer li{margin-bottom:5px;}
+
+  .stamp-box{
+    background:var(--stamp-soft);
+    border-left:3px solid var(--stamp);
+    padding:12px 15px;
+    border-radius:0 6px 6px 0;
+    margin:14px 0 4px;
+  }
+  .stamp-box .label{
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    color:var(--stamp);
+    margin-bottom:4px;
+  }
+
+  .result{
+    background:var(--good-soft);
+    border-left:3px solid var(--good);
+    padding:10px 15px;
+    border-radius:0 6px 6px 0;
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:15px;
+    margin:12px 0;
+  }
+  .result b{color:var(--good);font-size:17px;}
+
+  footer{
+    padding:24px 26px 40px;
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    margin-top:26px;
+  }
+
+  @media (max-width:480px){
+    header.letterhead{padding:24px 16px 18px;}
+    section{padding:20px 16px 4px;}
+    h1.title{font-size:22px;}
+    table.registry{font-size:13px;}
+    .meta-row{gap:14px;}
+    footer{padding:20px 16px 32px;}
+  }
+
+  ::selection{background:var(--signal);color:#fff;}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="letterhead">
+    <div class="doc-code">
+      <span>ПР №1 / ФЗ-126</span>
+      <span>ред. 07.07.2003</span>
+    </div>
+    <h1 class="title">Изучение Федерального закона «О связи»</h1>
+    <p class="subtitle">Практическая работа №1 · <b>№ 126-ФЗ от 07.07.2003</b>, актуальная редакция</p>
+    <div class="meta-row">
+      <span>Время: <b>90 минут</b></span>
+      <span>Роль: <b>начальник ЛТЦ</b></span>
+      <span>Оснащение: <b>текст ФЗ-126</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="stage"><span class="num">01</span> Аналитический разбор структуры</h2>
+    <p>Таблица соответствия глав закона функциональным блокам предприятия — главы 1, 2, 3, 10–13, не заполненные в исходном задании.</p>
+
+    <table class="registry">
+      <caption>Заполнено самостоятельно по оглавлению ФЗ-126</caption>
+      <thead>
+        <tr><th>Глава</th><th>Название главы</th><th>Функциональный блок / должность</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="ch">Гл. 1</td><td>Общие положения (ст. 1–4)</td><td>Юридический отдел / директор филиала</td></tr>
+        <tr><td class="ch">Гл. 2</td><td>Основы деятельности в области связи (ст. 5–10)</td><td>Технический отдел / главный инженер</td></tr>
+        <tr><td class="ch">Гл. 3</td><td>Сети связи (ст. 11–17)</td><td>Технический отдел / главный инженер</td></tr>
+        <tr><td class="ch">Гл. 10</td><td>Международное сотрудничество РФ в области связи (ст. 65–67)</td><td>Коммерческий департамент / головной офис</td></tr>
+        <tr><td class="ch">Гл. 11</td><td>Ответственность за нарушение законодательства о связи (ст. 68)</td><td>Юридический отдел / юрисконсульт</td></tr>
+        <tr><td class="ch">Гл. 12</td><td>Разрешение споров и рассмотрение дел о нарушениях (ст. 69–72)</td><td>Юридический отдел / юрисконсульт</td></tr>
+        <tr><td class="ch">Гл. 13</td><td>Заключительные и переходные положения (ст. 73–74)</td><td>Юридический отдел / секретариат</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2 class="stage"><span class="num">02</span> Решение ситуационных задач</h2>
+
+    <h3 class="task">Задача 1 · Доступ для маломобильных групп <span class="ref">ст. 46, п. 2</span></h3>
+    <div class="answer">
+      <p><b>1. Требования к объекту связи:</b></p>
+      <ul>
+        <li>тактильные таблички и указатели, выполненные шрифтом Брайля;</li>
+        <li>беспрепятственное передвижение — пандусы, поручни, зона для кресла-коляски;</li>
+        <li>дублирование звуковой информации зрительной и наоборот;</li>
+        <li>допуск на объект собак-проводников.</li>
+      </ul>
+      <p><b>2. Материально-технические ресурсы на один офис:</b></p>
+      <ul>
+        <li>тактильные таблички у входа и окон обслуживания;</li>
+        <li>тактильная направляющая плитка;</li>
+        <li>кнопка вызова персонала;</li>
+        <li>поручни, расширенный проход для коляски;</li>
+        <li>табло с бегущей строкой либо система голосового оповещения;</li>
+        <li>информационный знак допуска собак-проводников.</li>
+      </ul>
+      <p><b>3. Время бригады из 3 человек:</b> монтаж табличек — 4 ч, настройка дублирования звука — 2 ч; пандус уже выполнен строителями. Последовательно всей бригадой — <b>6 часов</b>; при параллельном разделении операций между членами бригады — ограничивает более долгая задача, <b>≈ 4 часа</b>.</p>
+    </div>
+
+    <h3 class="task">Задача 2 · Трансляция обязательных телеканалов <span class="ref">ст. 46, п. 4</span></h3>
+    <div class="answer">
+      <p><b>1. Пункты для проверки оборудования:</b> п. 4 ст. 46 — обязательность бесплатной трансляции без искажений; п. 1 ст. 46 — сохранение неизменности содержания и качества сигнала.</p>
+      <p><b>2. Алгоритм начальника ЛТЦ:</b></p>
+      <ol>
+        <li>распорядиться проверить головную станцию и приёмное оборудование на своём участке сети;</li>
+        <li>проверить абонентское оборудование у части жалующихся, исключить неисправность на стороне абонента;</li>
+        <li>составить акт технической проверки с фиксацией исправности/неисправности и времени устранения;</li>
+        <li>оформить акт сверки с вещателем о наличии сигнала на точке присоединения — разграничивает зоны ответственности;</li>
+        <li>устранить неисправность и зафиксировать отчёт — это подтверждает исполнение обязательств перед государством и защищает от штрафа за неработающий обязательный канал.</li>
+      </ol>
+    </div>
+
+    <h3 class="task">Задача 3 · Взаимодействие с органами безопасности <span class="ref">ст. 64</span></h3>
+    <div class="answer">
+      <p><b>1. Право на предоставление данных:</b> по устному запросу — <b>не имеет права</b>. Информация выдаётся только на основании официального письменного постановления или судебного решения уполномоченного органа. Согласно п. 1 ст. 64, оператор обязан хранить на территории РФ сведения о фактах приёма, передачи, доставки и обработки сообщений пользователей и данные о самих пользователях.</p>
+      <p><b>2. Инструкция дежурному инженеру:</b></p>
+      <ol>
+        <li>сообщить звонящему, что данные предоставляются только по письменному запросу/постановлению;</li>
+        <li>запросить ФИО, должность, номер удостоверения, наименование подразделения; перезвонить по официальному номеру для проверки;</li>
+        <li>не передавать никакие сведения без документа;</li>
+        <li>переадресовать обращение руководителю ЛТЦ, в юридический отдел и службу безопасности;</li>
+        <li>зафиксировать звонок в журнале обращений: дата, время, содержание, принятые меры.</li>
+      </ol>
+    </div>
+
+    <h3 class="task">Задача 4 · Резерв универсального обслуживания <span class="ref">ст. 60–61</span></h3>
+    <div class="stamp-box">
+      <div class="label">Расчёт</div>
+      <p>Выручка от услуг связи: 10 000 000 ₽ · ставка отчислений: 1,2 %</p>
+      <p>10 000 000 × 0,012 = <b>120 000 ₽</b></p>
+    </div>
+    <div class="result">Сумма обязательных неналоговых платежей в резерв: <b>120 000 ₽</b></div>
+    <div class="answer">
+      <p><b>Почему это нужно учитывать при защите бюджета:</b> отчисления в резерв — обязательный неналоговый платёж, установленный законом (аналогично налогу), который напрямую уменьшает свободные средства подразделения. Его необходимо закладывать в бюджет заранее отдельной строкой расходов — иначе возникнут недоимка и риск штрафа за неисполнение обязанности по ст. 60.</p>
+    </div>
+  </section>
+
+  <footer>
+    Практическая работа №1 · Тема: ФЗ-126 «О связи» · подготовлено для самостоятельной сверки и переноса в отчёт
+  </footer>
+
+</div>
+</body>
+</html>
